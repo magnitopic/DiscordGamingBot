@@ -1,5 +1,6 @@
 import discord
 import os
+import rawgpy
 from webServer import keep_alive
 
 #my_secret = os.environ['TOKEN']
