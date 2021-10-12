@@ -23,8 +23,8 @@ def get_apod():
     resp = requests.get(
         "https://api.nasa.gov/planetary/apod?api_key=" + os.environ['API_TOKEN'])
     content = json.loads(resp.content)
-    #print(content)     Prints all the JSON
-
+    #print(content)  # Prints all the JSON
+    return content["url"],content["title"]
 
 @client.event
 async def on_message(message):
@@ -34,7 +34,9 @@ async def on_message(message):
     if message.content.startswith("$hello"):
         await message.channel.send('Hello!')
     elif message.content.startswith("$apod") or message.content.startswith("$APOD"):
-        get_apod()
+        url,title=get_apod()
+        await message.channel.send(title)
+        await message.channel.send(url)
 
 # Calls the keep_alive function form webServer.py
 keep_alive()
